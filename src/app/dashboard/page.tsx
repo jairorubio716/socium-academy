@@ -135,13 +135,13 @@ export default function DashboardPage() {
   const nombreUsuario = perfil?.nombre_completo || usuario.email?.split('@')[0] || 'Usuario'
 
   return (
-    <div className="min-h-screen bg-section dark:bg-background-dark p-4 md:p-8">
+    <div className="min-h-screen bg-section dark:bg-background-dark p-4 md:p-6 lg:p-8">
       
       <div className="max-w-6xl mx-auto">
         
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 md:mb-8 gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground tracking-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-foreground tracking-tight">
               ¡Bienvenido, {nombreUsuario}!
             </h1>
             <div className="flex items-center gap-2 mt-1">
@@ -153,114 +153,116 @@ export default function DashboardPage() {
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <ToggleTheme />
             <Button 
               variant="outline" 
+              size="sm"
               className="flex-1 sm:flex-none border-border dark:border-border"
               onClick={() => router.push('/cursos')}
             >
               <BookOpen className="w-4 h-4 mr-2" />
-              Explorar cursos
+              Explorar
             </Button>
             <Button 
               variant="destructive"
+              size="sm"
               className="flex-1 sm:flex-none"
               onClick={manejarCerrarSesion}
             >
               <LogOut className="w-4 h-4 mr-2" />
-              Cerrar sesión
+              Salir
             </Button>
           </div>
         </div>
 
-        <Card className="mb-8 shadow-card bg-card dark:bg-card border-border">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-2 text-foreground">
+        <Card className="mb-6 md:mb-8 shadow-card bg-card dark:bg-card border-border">
+          <CardHeader className="pb-2 md:pb-3">
+            <CardTitle className="text-base md:text-lg flex items-center gap-2 text-foreground">
               <User className="w-5 h-5 text-primary" />
               Tu perfil
             </CardTitle>
-            <CardDescription className="text-muted-foreground text-base">
+            <CardDescription className="text-sm md:text-base text-muted-foreground break-all">
               {usuario.email}
             </CardDescription>
           </CardHeader>
         </Card>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
           <Card className="shadow-card bg-card dark:bg-card border-border hover:shadow-card-hover transition-all duration-200">
-            <CardContent className="p-4 text-center">
-              <BookOpen className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <p className="text-3xl font-bold text-foreground">{estadisticas.cursosActivos}</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">En progreso</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <BookOpen className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 text-primary" />
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{estadisticas.cursosActivos}</p>
+              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">En progreso</p>
             </CardContent>
           </Card>
           
           <Card className="shadow-card bg-card dark:bg-card border-border hover:shadow-card-hover transition-all duration-200">
-            <CardContent className="p-4 text-center">
-              <CheckCircle className="w-8 h-8 mx-auto mb-2 text-green-600 dark:text-green-400" />
-              <p className="text-3xl font-bold text-foreground">{estadisticas.cursosCompletados}</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">Completados</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <CheckCircle className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 text-green-600 dark:text-green-400" />
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{estadisticas.cursosCompletados}</p>
+              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">Completados</p>
             </CardContent>
           </Card>
           
           <Card className="shadow-card bg-card dark:bg-card border-border hover:shadow-card-hover transition-all duration-200">
-            <CardContent className="p-4 text-center">
-              <Award className="w-8 h-8 mx-auto mb-2 text-yellow-600 dark:text-yellow-400" />
-              <p className="text-3xl font-bold text-foreground">{estadisticas.xpTotal}</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">XP total</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <Award className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 text-yellow-600 dark:text-yellow-400" />
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{estadisticas.xpTotal}</p>
+              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">XP total</p>
             </CardContent>
           </Card>
           
           <Card className="shadow-card bg-card dark:bg-card border-border hover:shadow-card-hover transition-all duration-200">
-            <CardContent className="p-4 text-center">
-              <Trophy className="w-8 h-8 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
-              <p className="text-3xl font-bold text-foreground">{estadisticas.nivel}</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">Nivel</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <Trophy className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 text-purple-600 dark:text-purple-400" />
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">{estadisticas.nivel}</p>
+              <p className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">Nivel</p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="mb-8">
-          <h2 className="text-xl font-heading font-bold text-foreground mb-4 flex items-center gap-2">
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-base md:text-xl font-heading font-bold text-foreground mb-3 md:mb-4 flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-primary" />
             Tus cursos
           </h2>
           {cursosInscritos.length === 0 ? (
             <Card className="shadow-card bg-card dark:bg-card border-border">
-              <CardContent className="p-8 text-center">
-                <div className="text-5xl mb-4">📖</div>
-                <p className="text-muted-foreground text-lg mb-4">Aún no estás inscrito en ningún curso.</p>
-                <Button onClick={() => router.push('/cursos')} variant="default" size="lg">
+              <CardContent className="p-6 md:p-8 text-center">
+                <div className="text-4xl md:text-5xl mb-4">📖</div>
+                <p className="text-sm md:text-lg text-muted-foreground mb-4">Aún no estás inscrito en ningún curso.</p>
+                <Button onClick={() => router.push('/cursos')} variant="default" size="default">
                   <Rocket className="w-4 h-4 mr-2" />
                   Explorar cursos
                 </Button>
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {cursosInscritos.map((inscripcion) => (
                 <Card key={inscripcion.id} className="shadow-card bg-card dark:bg-card border-border hover:shadow-card-hover transition-all duration-200">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg text-foreground flex justify-between items-start">
+                  <CardHeader className="pb-1 md:pb-2">
+                    <CardTitle className="text-base md:text-lg text-foreground flex flex-wrap justify-between items-start gap-2">
                       <span className="font-heading">{inscripcion.cursos.titulo}</span>
-                      <span className="text-xs font-normal text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                      <span className="text-[10px] md:text-xs font-normal text-muted-foreground bg-muted px-2 py-1 rounded-full whitespace-nowrap">
                         {inscripcion.estado === 'ACTIVO' ? 'En progreso' : 'Completado'}
                       </span>
                     </CardTitle>
-                    <CardDescription className="text-muted-foreground text-sm">
+                    <CardDescription className="text-xs md:text-sm text-muted-foreground">
                       {inscripcion.cursos.categorias?.nombre || 'Sin categoría'} • {inscripcion.cursos.nivel}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 md:gap-4">
                       <div className="flex-1">
-                        <div className="flex justify-between text-sm text-muted-foreground mb-1">
+                        <div className="flex justify-between text-xs md:text-sm text-muted-foreground mb-1">
                           <span>Progreso</span>
                           <span>{inscripcion.progreso || 0}%</span>
                         </div>
-                        <div className="w-full bg-muted rounded-full h-2.5">
+                        <div className="w-full bg-muted rounded-full h-2 md:h-2.5">
                           <div 
-                            className="bg-primary rounded-full h-2.5 transition-all duration-500" 
+                            className="bg-primary rounded-full h-2 md:h-2.5 transition-all duration-500" 
                             style={{ width: `${inscripcion.progreso || 0}%` }}
                           ></div>
                         </div>
@@ -277,35 +279,35 @@ export default function DashboardPage() {
         </div>
 
         <Card className="shadow-card bg-card dark:bg-card border-border">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-2 text-foreground">
+          <CardHeader className="pb-2 md:pb-3">
+            <CardTitle className="text-base md:text-lg flex items-center gap-2 text-foreground">
               <Rocket className="w-5 h-5 text-primary" />
               Próximos pasos
             </CardTitle>
-            <CardDescription className="text-muted-foreground">
+            <CardDescription className="text-xs md:text-sm text-muted-foreground">
               Estamos construyendo tu experiencia de aprendizaje
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+          <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+            <div className="flex items-center gap-3 p-2 md:p-3 bg-muted/50 rounded-lg">
               <BookOpen className="w-5 h-5 text-primary" />
               <div>
-                <p className="text-sm font-medium text-foreground">Explorador de cursos</p>
-                <p className="text-xs text-muted-foreground">Encuentra tu próximo curso</p>
+                <p className="text-xs md:text-sm font-medium text-foreground">Explorador de cursos</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground">Encuentra tu próximo curso</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-3 p-2 md:p-3 bg-muted/50 rounded-lg">
               <Trophy className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
               <div>
-                <p className="text-sm font-medium text-foreground">Logros e insignias</p>
-                <p className="text-xs text-muted-foreground">Sigue tu progreso</p>
+                <p className="text-xs md:text-sm font-medium text-foreground">Logros e insignias</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground">Sigue tu progreso</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center gap-3 p-2 md:p-3 bg-muted/50 rounded-lg">
               <Award className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <div>
-                <p className="text-sm font-medium text-foreground">Certificados</p>
-                <p className="text-xs text-muted-foreground">Tus certificaciones</p>
+                <p className="text-xs md:text-sm font-medium text-foreground">Certificados</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground">Tus certificaciones</p>
               </div>
             </div>
           </CardContent>
