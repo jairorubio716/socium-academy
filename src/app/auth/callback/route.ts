@@ -26,7 +26,22 @@ export async function GET(request: Request) {
       }
     )
     await supabase.auth.exchangeCodeForSession(code)
+
+    // 🔥 Después de intercambiar el código, obtener el usuario y redirigir según rol
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { data: perfil } = await supabase
+        .from('perfiles')
+        .select('rol')
+        .eq('id', user.id)
+        .single()
+
+      if (perfil?.rol === 'ADMIN') {
+        return NextResponse.redirect(new URL('/admin', request.url))
+      }
+    }
   }
-  
+
+  // Si no es ADMIN o no hay perfil, redirigir al dashboard
   return NextResponse.redirect(new URL('/dashboard', request.url))
 }

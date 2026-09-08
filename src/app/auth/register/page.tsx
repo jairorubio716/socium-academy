@@ -19,17 +19,17 @@ export default function PaginaRegistro() {
   const [cargando, setCargando] = useState(false)
 
   useEffect(() => {
-  setCargando(false)
-  setError('')
-  const resetearEstado = () => {
     setCargando(false)
     setError('')
-  }
-  window.addEventListener('focus', resetearEstado)
-  return () => {
-    window.removeEventListener('focus', resetearEstado)
-  }
-}, [])
+    const resetearEstado = () => {
+      setCargando(false)
+      setError('')
+    }
+    window.addEventListener('focus', resetearEstado)
+    return () => {
+      window.removeEventListener('focus', resetearEstado)
+    }
+  }, [])
 
   const manejarRegistro = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +47,24 @@ export default function PaginaRegistro() {
 
     if (error) {
       setError(error.message)
+      setCargando(false)
+      return
+    }
+
+    // 🔥 Después de registrarse, obtener el rol y redirigir
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { data: perfil } = await supabase
+        .from('perfiles')
+        .select('rol')
+        .eq('id', user.id)
+        .single()
+
+      if (perfil?.rol === 'ADMIN') {
+        router.push('/admin')
+      } else {
+        router.push('/dashboard')
+      }
     } else {
       router.push('/dashboard')
     }
@@ -55,12 +73,9 @@ export default function PaginaRegistro() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4 md:p-8 relative">
-      
-      {}
       <div className="absolute top-4 right-4">
         <ToggleTheme />
       </div>
-
       <Card className="w-full max-w-md mx-auto shadow-2xl border-0 dark:bg-gray-800/90 backdrop-blur-sm">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-2">
@@ -72,7 +87,6 @@ export default function PaginaRegistro() {
             Ingresa tus datos para empezar a aprender tecnología
           </CardDescription>
         </CardHeader>
-
         <CardContent>
           <form onSubmit={manejarRegistro} className="space-y-4">
             <div className="space-y-2">
@@ -82,14 +96,13 @@ export default function PaginaRegistro() {
               <Input
                 id="nombreCompleto"
                 type="text"
-                placeholder="Ej: Socium Academy"
+                placeholder="Ej: Jairo Pérez"
                 value={nombreCompleto}
                 onChange={(e) => setNombreCompleto(e.target.value)}
                 className="h-11 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 required
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="correo" className="text-sm font-medium dark:text-gray-300">
                 Correo electrónico
@@ -104,7 +117,6 @@ export default function PaginaRegistro() {
                 required
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="contrasena" className="text-sm font-medium dark:text-gray-300">
                 Contraseña
@@ -119,13 +131,11 @@ export default function PaginaRegistro() {
                 required
               />
             </div>
-
             {error && (
               <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-2 rounded-md text-sm">
                 {error}
               </div>
             )}
-
             <Button 
               type="submit" 
               className="w-full h-11 text-base font-semibold bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
@@ -140,7 +150,6 @@ export default function PaginaRegistro() {
                 'Registrarse'
               )}
             </Button>
-
             <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
               ¿Ya tienes cuenta?{' '}
               <Link href="/auth/login" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
