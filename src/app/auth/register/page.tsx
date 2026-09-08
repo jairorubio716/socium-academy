@@ -51,7 +51,7 @@ export default function PaginaRegistro() {
       return
     }
 
-    // 🔥 Después de registrarse, obtener el rol y redirigir
+    
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
       const { data: perfil } = await supabase

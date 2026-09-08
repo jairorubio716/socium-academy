@@ -47,7 +47,7 @@ export default function PaginaLogin() {
       return
     }
 
-    // 🔥 OBTENER EL ROL DEL USUARIO Y REDIRIGIR
+   
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
       const { data: perfil } = await supabase

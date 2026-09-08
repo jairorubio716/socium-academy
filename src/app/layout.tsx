@@ -3,7 +3,7 @@ import { Poppins, Montserrat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./providers";
 
-// Fuente para títulos (Poppins)
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
@@ -11,7 +11,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// Fuente para texto (Montserrat)
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
